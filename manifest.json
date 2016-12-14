@@ -1,10 +1,8 @@
 {
   "manifest_version": 2,
-
   "name": "Getting started example",
   "description": "This extension is adding some features to SW.",
   "version": "1.0",
-
   "browser_action": {
     "default_icon": "sw-icon.png",
     "default_popup": "popup.html"
