@@ -8,6 +8,54 @@ if (url.indexOf("auberge.php") != -1) {
 } else if (url.indexOf("bank.php") != -1) {
     console.log("loading bank script");
 
+    var collections = [
+        {
+            name: "Potions",
+            keywords: ["potion"]
+        },
+        {
+            name: "Boosts",
+            keywords: ["boost"]
+        }
+    ];
+
+    var tableNum = 0;
+    $(".bord2").each(function (index, value) {
+        tableNum++;
+        for (var x in collections) {
+            if (!collections.hasOwnProperty(x)) continue;
+            var col = collections[x];
+            
+            var collectionId = "collection-" + col.name.toLowerCase() + tableNum;
+            if($("#"+collectionId).length > 0) continue;
+
+            var collectionDiv = $('<div id="' + collectionId + '"></div>');
+            var collectionTitle = $("<h3>" + col.name + "</h3>");
+            collectionDiv.append(collectionTitle);
+
+            $(value).append(collectionDiv);
+        }
+
+        var items = $(value).find(".tabContour");
+        items.each(function (itemIndex, itemValue) {
+            var itemName = $(itemValue).find("td.default")[0].innerText.toLowerCase();
+
+            for (var i in collections) {
+                if (!collections.hasOwnProperty(i)) continue;
+                var collection = collections[i];
+
+                for (var j in collection.keywords) {
+                    if (!collection.keywords.hasOwnProperty(j)) continue;
+                    var keyword = collection.keywords[j];
+
+                    if (itemName.indexOf(keyword) != -1) {
+                        console.log(keyword + ": " + itemName);
+                    }
+                }
+            }
+        });
+    });
+
 } else if (url.endsWith("rating")) {
     // TODO work in progress, need to get Pseudo and to put link after iframe src change
     var iframeElement = $('iframe[src^="/membres.php"]');
