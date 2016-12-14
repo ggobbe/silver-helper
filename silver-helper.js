@@ -2,8 +2,11 @@
 
 var url = document.location.href;
 
-if (url.endsWith("auberge.php")) {
+if (url.indexOf("auberge.php") != -1) {
     console.log("loading auberge script");
+
+} else if (url.indexOf("bank.php") != -1) {
+    console.log("loading bank script");
 
 } else if (url.endsWith("rating")) {
     // TODO work in progress, need to get Pseudo and to put link after iframe src change
