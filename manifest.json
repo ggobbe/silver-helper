@@ -1,12 +1,25 @@
 {
   "manifest_version": 2,
-  "name": "Getting started example",
+  "name": "Silver-Helper",
   "description": "This extension is adding some features to SW.",
   "version": "1.0",
   "browser_action": {
     "default_icon": "sw-icon.png",
-    "default_popup": "popup.html"
+    "default_popup": "options.html"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.silver-world.net/*",
+        "https://www.silver-world.net/*"
+      ],
+      "js": [
+        //"jquery-3.1.1.min.js",
+        "jquery-3.1.1.js",
+        "silver-helper.js"
+      ]
+    }
+  ],
   "permissions": [
     "activeTab"
   ]
