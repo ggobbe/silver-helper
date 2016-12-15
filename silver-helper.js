@@ -54,7 +54,7 @@ if (url.indexOf("bank.php") != -1) {
             var itemType = $(itemValue).parent().find('input[name="type"]');
 
             if (itemType.val() === 'vetement') {
-                var collectionId = "collection-equipement" + tableNum;
+                var collectionId = "collection-equipements" + tableNum;
                 var parent = $(itemValue).parent();
                 $("#" + collectionId).append(parent);
                 return;
