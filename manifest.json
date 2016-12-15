@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Silver-Helper",
-  "description": "This extension is adding some features to SW.",
-  "version": "0.1",
+  "description": "Cette extension ajoute des fonctionnalités à Silver-World.",
+  "version": "0.3",
   "browser_action": {
     "default_icon": "sw-icon.png",
     "default_popup": "options.html"

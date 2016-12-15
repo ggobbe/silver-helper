@@ -6,21 +6,21 @@ if (url.indexOf("bank.php") != -1) {
     var collections = [
         {
             name: "Boosts",
-            keywords: ["boost", "constitution", "force", "agilité", "intel"]
+            keywords: ["boost", "constitution", "force", "agilité", "intel", "voix de gimlo", "maitrise spirituelle", "controle mental", "lait de coco"]
         },
         {
             name: "Potions",
-            keywords: ["potion", "poisson", "essence", "ration"]
+            keywords: ["potion", "poisson", "essence", "ration", "vie des forgerons"]
         },
         {
             name: "Equipement",
             keywords: [
-                "casque", "masque", "diadème", "heaume", "chapeau", "tiare", "couronne",
-                "pendentif", "amulette",
-                "armure", "cuirasse", "tunique", "robe", "plastron", "cape", "manteau", "cotte de maille",
-                "bouclier", "pavois", "ecu", "rondache",
-                "epée", "glaive", "marteau", "dague", "bâton", "lame", "cimeterre", "lance", "gourdin", "sceptre", "hache", "arc",
-                "bott"
+                // "casque", "masque", "diadème", "heaume", "chapeau", "tiare", "couronne",
+                // "pendentif", "amulette",
+                // "armure", "cuirasse", "tunique", "robe", "plastron", "cape", "manteau", "cotte de maille",
+                // "bouclier", "pavois", "ecu", "rondache",
+                // "epée", "glaive", "marteau", "dague", "bâton", "lame", "cimeterre", "lance", "gourdin", "sceptre", "hache", "arc ",
+                // "bott"
             ]
         },
         {
@@ -54,6 +54,14 @@ if (url.indexOf("bank.php") != -1) {
         var items = $(value).find(".tabContour");
         items.each(function (itemIndex, itemValue) {
             var itemName = $(itemValue).find("td.default")[0].innerText.toLowerCase();
+            var itemType = $(itemValue).parent().find('input[name="type"]');
+
+            if (itemType.val() === 'vetement') {
+                var collectionId = "collection-equipement" + tableNum;
+                var parent = $(itemValue).parent();
+                $("#" + collectionId).append(parent);
+                return;
+            }
 
             for (var i in collections) {
                 if (!collections.hasOwnProperty(i)) continue;
