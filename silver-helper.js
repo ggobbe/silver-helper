@@ -16,6 +16,14 @@ if (url.indexOf("auberge.php") != -1) {
         {
             name: "Boosts",
             keywords: ["boost"]
+        },
+        {
+            name: "Equipement",
+            keywords: ["botte", "casque", "robe", "sceptre"]
+        },
+        {
+            name: "Autres",
+            keywords: [""]
         }
     ];
 
@@ -29,11 +37,16 @@ if (url.indexOf("auberge.php") != -1) {
             var collectionId = "collection-" + col.name.toLowerCase() + tableNum;
             if($("#"+collectionId).length > 0) continue;
 
-            var collectionDiv = $('<div id="' + collectionId + '"></div>');
-            var collectionTitle = $("<h3>" + col.name + "</h3>");
+            var collectionDiv = $('<div id="' + collectionId + '" style="background: #3399cc;"></div>');
+            var collectionTitle = $('<h4 style="color: white;">' + col.name + '</h4>');
             collectionDiv.append(collectionTitle);
 
-            $(value).append(collectionDiv);
+            var mainCell = $(value).find('td[width="128"]');
+            var brs = $(value).find('td[width="128"] > br');
+            brs.each(function(brIndex, brValue){
+                $(brValue).remove();
+            });
+            mainCell.append(collectionDiv);
         }
 
         var items = $(value).find(".tabContour");
@@ -49,7 +62,10 @@ if (url.indexOf("auberge.php") != -1) {
                     var keyword = collection.keywords[j];
 
                     if (itemName.indexOf(keyword) != -1) {
-                        console.log(keyword + ": " + itemName);
+                        var collectionId = "collection-" + collection.name.toLowerCase() + tableNum;
+                        var parent = $(itemValue).parent();
+                        $("#"+collectionId).append(parent);
+                        return;
                     }
                 }
             }
