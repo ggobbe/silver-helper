@@ -22,6 +22,11 @@ var createCollections = function (collections, container, idSuffix) {
     }
 }
 
+var addItemToCollection = function (item, collection, suffix) {
+    var collectionId = "collection-" + collection.name.toLowerCase() + suffix;
+    $("#" + collectionId).append(item);
+}
+
 if (url.indexOf("bank.php") != -1) {
     var collections = [
         {
@@ -48,15 +53,14 @@ if (url.indexOf("bank.php") != -1) {
         var container = $(value).find('td[width="128"]');
         createCollections(collections, container, tableNum);
 
-        var items = $(value).find(".tabContour");
+        var items = $(value).find('form[name="form1"]');
         items.each(function (itemIndex, itemValue) {
             var itemName = $(itemValue).find("td.default")[0].innerText.toLowerCase();
-            var itemType = $(itemValue).parent().find('input[name="type"]');
+            var itemType = $(itemValue).find('input[name="type"]');
 
             if (itemType.val() === 'vetement') {
-                var collectionId = "collection-equipements" + tableNum;
-                var parent = $(itemValue).parent();
-                $("#" + collectionId).append(parent);
+                var equipmentCollection = collections[2];
+                addItemToCollection($(itemValue), equipmentCollection, tableNum);
                 return;
             }
 
@@ -69,9 +73,7 @@ if (url.indexOf("bank.php") != -1) {
                     var keyword = collection.keywords[j];
 
                     if (itemName.indexOf(keyword) != -1) {
-                        var collectionId = "collection-" + collection.name.toLowerCase() + tableNum;
-                        var parent = $(itemValue).parent();
-                        $("#" + collectionId).append(parent);
+                        addItemToCollection($(itemValue), collection, tableNum);
                         return;
                     }
                 }
