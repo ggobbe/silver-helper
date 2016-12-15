@@ -2,10 +2,15 @@
   "manifest_version": 2,
   "name": "Silver-Helper",
   "description": "This extension is adding some features to SW.",
-  "version": "1.0",
+  "version": "0.1",
   "browser_action": {
     "default_icon": "sw-icon.png",
     "default_popup": "options.html"
+  },
+  "icons": {
+    "16": "sw-icon.png",
+    "48": "sw-icon.png",
+    "128": "sw-icon.png"
   },
   "content_scripts": [
     {
@@ -14,8 +19,7 @@
         "https://www.silver-world.net/*"
       ],
       "js": [
-        //"jquery-3.1.1.min.js",
-        "jquery-3.1.1.js",
+        "jquery-3.1.1.min.js",
         "silver-helper.js"
       ]
     }

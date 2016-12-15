@@ -6,21 +6,34 @@
       body {
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
+        color: white;
+        background: #3399cc;
+        padding: 20px;
       }
-      #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 400px;
+      #main {
+        width: 450px;
+      }
+      #logo {
+        position: absolute;
+        top: 20px;
+        right: 20px;
       }
     </style>
 <script src="options.js"></script>
 </head>
 
 <body>
-  <h2>Silver-Helper Options</h2>
-  <div id="status"></div>
+  <div id="logo"><img src="sw-icon.png" alt="icon" /></div>
+  <h2>Silver-Helper v0.1-beta</h2>
+  <div id="main">
+    <p>Silver-Helper est encore en construction.<br>Envoyez vos commentaires et suggestions à <strong>Anael</strong>.</p>
+    <h4>Mode d'emploi</h4>
+    <p>Lorsque l'extension est activée dans Google Chrome, la liste des fonctionnalités ci-dessous fonctionneront automatiquement lorsque vous visiterez Silver-World.</p>
+    <h4>Fonctionnalités :</h4>
+    <ul>
+      <li>Tri des objets en banque (non terminé)</li>
+    </ul>
+  </div>
 </body>
 
 </html>

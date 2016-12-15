@@ -18,6 +18,6 @@ function renderStatus(statusText) {
 
 document.addEventListener('DOMContentLoaded', function () {
     getCurrentTabUrl(function (url) {
-        renderStatus('Initialising on ' + url);
+        renderStatus('');
     });
 });
