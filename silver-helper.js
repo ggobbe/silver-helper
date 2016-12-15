@@ -27,6 +27,29 @@ var addItemToCollection = function (item, collection, suffix) {
     $("#" + collectionId).append(item);
 }
 
+var findItemCollection = function (item, collections) {
+    var itemName = $(item).find("td.default")[0].innerText.toLowerCase();
+    var itemType = $(item).find('input[name="type"]');
+
+    if (itemType.val() === 'vetement') {
+        return collections[2]; // Equipements
+    }
+
+    for (var i in collections) {
+        if (!collections.hasOwnProperty(i)) continue;
+        var collection = collections[i];
+
+        for (var j in collection.keywords) {
+            if (!collection.keywords.hasOwnProperty(j)) continue;
+            var keyword = collection.keywords[j];
+
+            if (itemName.indexOf(keyword) != -1) {
+                return collection;
+            }
+        }
+    }
+}
+
 if (url.indexOf("bank.php") != -1) {
     var collections = [
         {
@@ -55,29 +78,8 @@ if (url.indexOf("bank.php") != -1) {
 
         var items = $(value).find('form[name="form1"]');
         items.each(function (itemIndex, itemValue) {
-            var itemName = $(itemValue).find("td.default")[0].innerText.toLowerCase();
-            var itemType = $(itemValue).find('input[name="type"]');
-
-            if (itemType.val() === 'vetement') {
-                var equipmentCollection = collections[2];
-                addItemToCollection($(itemValue), equipmentCollection, tableNum);
-                return;
-            }
-
-            for (var i in collections) {
-                if (!collections.hasOwnProperty(i)) continue;
-                var collection = collections[i];
-
-                for (var j in collection.keywords) {
-                    if (!collection.keywords.hasOwnProperty(j)) continue;
-                    var keyword = collection.keywords[j];
-
-                    if (itemName.indexOf(keyword) != -1) {
-                        addItemToCollection($(itemValue), collection, tableNum);
-                        return;
-                    }
-                }
-            }
+            var collection = findItemCollection($(itemValue), collections);
+            addItemToCollection($(itemValue), collection, tableNum);
         });
     });
 }
