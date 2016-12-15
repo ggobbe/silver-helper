@@ -11,13 +11,19 @@ var createCollections = function (collections, container, idSuffix) {
         if ($("#" + collectionId).length > 0) continue;
 
         var collectionDiv = $('<div id="' + collectionId + '" style="background: #3399cc;"></div>');
+        var collectionAnchor = $('<a name="' + collectionId + '"></a>');
+        var separatorText = $("<span> </span>");
+        var collectionLink = $('<a href="#' + collectionId + '" class="white_link">' + col.name + '</a>');
         var collectionTitle = $('<h4 style="color: white; margin-top: 11px; margin-bottom: 5px;">' + col.name + '</h4>');
+        collectionDiv.append(collectionAnchor);
         collectionDiv.append(collectionTitle);
 
         var brs = $(container).find('> br');
         brs.each(function (brIndex, brValue) {
             $(brValue).remove();
         });
+        $(container).prepend(separatorText);
+        $(container).prepend(collectionLink);
         $(container).append(collectionDiv);
     }
 }
