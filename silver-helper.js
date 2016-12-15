@@ -2,24 +2,26 @@
 
 var url = document.location.href;
 
-if (url.indexOf("auberge.php") != -1) {
-    console.log("loading auberge script");
-
-} else if (url.indexOf("bank.php") != -1) {
-    console.log("loading bank script");
-
+if (url.indexOf("bank.php") != -1) {
     var collections = [
         {
-            name: "Potions",
-            keywords: ["potion"]
+            name: "Boosts",
+            keywords: ["boost", "constitution", "force", "agilité", "intel"]
         },
         {
-            name: "Boosts",
-            keywords: ["boost"]
+            name: "Potions",
+            keywords: ["potion", "poisson", "essence", "ration"]
         },
         {
             name: "Equipement",
-            keywords: ["botte", "casque", "robe", "sceptre"]
+            keywords: [
+                "casque", "masque", "diadème", "heaume", "chapeau", "tiare", "couronne",
+                "pendentif", "amulette",
+                "armure", "cuirasse", "tunique", "robe", "plastron", "cape", "manteau", "cotte de maille",
+                "bouclier", "pavois", "ecu", "rondache",
+                "epée", "glaive", "marteau", "dague", "bâton", "lame", "cimeterre", "lance", "gourdin", "sceptre", "hache", "arc",
+                "bott"
+            ]
         },
         {
             name: "Autres",
@@ -33,9 +35,9 @@ if (url.indexOf("auberge.php") != -1) {
         for (var x in collections) {
             if (!collections.hasOwnProperty(x)) continue;
             var col = collections[x];
-            
+
             var collectionId = "collection-" + col.name.toLowerCase() + tableNum;
-            if($("#"+collectionId).length > 0) continue;
+            if ($("#" + collectionId).length > 0) continue;
 
             var collectionDiv = $('<div id="' + collectionId + '" style="background: #3399cc;"></div>');
             var collectionTitle = $('<h4 style="color: white;">' + col.name + '</h4>');
@@ -43,7 +45,7 @@ if (url.indexOf("auberge.php") != -1) {
 
             var mainCell = $(value).find('td[width="128"]');
             var brs = $(value).find('td[width="128"] > br');
-            brs.each(function(brIndex, brValue){
+            brs.each(function (brIndex, brValue) {
                 $(brValue).remove();
             });
             mainCell.append(collectionDiv);
@@ -64,7 +66,7 @@ if (url.indexOf("auberge.php") != -1) {
                     if (itemName.indexOf(keyword) != -1) {
                         var collectionId = "collection-" + collection.name.toLowerCase() + tableNum;
                         var parent = $(itemValue).parent();
-                        $("#"+collectionId).append(parent);
+                        $("#" + collectionId).append(parent);
                         return;
                     }
                 }
