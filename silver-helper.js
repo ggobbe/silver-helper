@@ -88,4 +88,54 @@ if (url.indexOf("bank.php") != -1) {
             addItemToCollection($(itemValue), collection, tableNum);
         });
     });
+} else if (url.indexOf("attacklog.php") != -1) {
+    var logLinks = $('a[href^="?cl="][href*="&action=view&id="]');
+    var logUrlRegex = /cl=(\d)&action=view&id=(\d+)/i;
+
+    if (logLinks.length > 0) {
+        var logs = [];
+        let previous = null;
+        var index = 0;
+        logLinks.each(function (index, value) {
+            var result = logUrlRegex.exec($(value).attr("href"));
+            logs[index] = {
+                "cl": result[1],
+                "id": result[2],
+                "link": $(value).attr("href"),
+                "previous": previous != null ? previous.link : null,
+                "next": null
+            };
+            if (previous != null) {
+                previous.next = logs[index].link;
+            }
+            previous = logs[index];
+            index++;
+        });
+        chrome.storage.local.set({ "logs": logs }, null);
+    } else {
+        chrome.storage.local.get("logs", function (data) {
+            var logLinks = data.logs;
+            var results = logUrlRegex.exec(url);
+            var logCl = results[1];
+            var logId = results[2];
+
+            for (var index in logLinks) {
+                if (!logLinks.hasOwnProperty(index)) continue;
+
+                var log = logLinks[index];
+                if (log.cl == logCl && log.id == logId) {
+                    var table = $('table[width="550"]');
+                    if (log.previous != null) {
+                        var previousLink = $('<a href="' + log.previous + '" class="white_link">Précédent</a>');
+                        table.append(previousLink);
+                    }
+                    if (log.next != null) {
+                        var nextLink = $('<a href="' + log.next + '" class="white_link">Suivant</a>');
+                        table.parent().append(nextLink);
+                    }
+                    return;
+                }
+            }
+        });
+    }
 }
