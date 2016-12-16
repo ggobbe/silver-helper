@@ -96,7 +96,6 @@ if (url.indexOf("bank.php") != -1) {
         var logs = [];
         let previous = null;
         var index = 0;
-        var logsCl = 0;
         logLinks.each(function (index, value) {
             var result = logUrlRegex.exec($(value).attr("href"));
             logs[index] = {
@@ -106,7 +105,6 @@ if (url.indexOf("bank.php") != -1) {
                 "previous": previous != null ? previous.link : null,
                 "next": null
             };
-            logsCl = result[1];
             if (previous != null) {
                 previous.next = logs[index].link;
             }
@@ -114,7 +112,7 @@ if (url.indexOf("bank.php") != -1) {
             index++;
         });
         var data = {};
-        data["logs" + logsCl] = logs;
+        data["logs" + logs[0].cl] = logs;
         chrome.storage.local.set(data, null);
     } else {
         var results = logUrlRegex.exec(url);
