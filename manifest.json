@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Silver-Helper",
   "description": "Cette extension ajoute des fonctionnalités à Silver-World.",
-  "version": "0.4",
+  "version": "0.5",
   "browser_action": {
     "default_icon": "sw-icon.png",
     "default_popup": "options.html"
@@ -25,6 +25,7 @@
     }
   ],
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ]
 }
