@@ -96,6 +96,7 @@ if (url.indexOf("bank.php") != -1) {
         var logs = [];
         let previous = null;
         var index = 0;
+        var logsCl = 0;
         logLinks.each(function (index, value) {
             var result = logUrlRegex.exec($(value).attr("href"));
             logs[index] = {
@@ -105,34 +106,40 @@ if (url.indexOf("bank.php") != -1) {
                 "previous": previous != null ? previous.link : null,
                 "next": null
             };
+            logsCl = result[1];
             if (previous != null) {
                 previous.next = logs[index].link;
             }
             previous = logs[index];
             index++;
         });
-        chrome.storage.local.set({ "logs": logs }, null);
+        var data = {};
+        data["logs" + logsCl] = logs;
+        chrome.storage.local.set(data, null);
     } else {
-        chrome.storage.local.get("logs", function (data) {
-            var logLinks = data.logs;
-            var results = logUrlRegex.exec(url);
-            var logCl = results[1];
-            var logId = results[2];
-
+        var results = logUrlRegex.exec(url);
+        var logCl = results[1];
+        var logId = results[2];
+        var logsKey = "logs" + logCl;
+        chrome.storage.local.get(""+logsKey, function (data) {
+            var logLinks = data[logsKey];
             for (var index in logLinks) {
                 if (!logLinks.hasOwnProperty(index)) continue;
 
                 var log = logLinks[index];
                 if (log.cl == logCl && log.id == logId) {
-                    var table = $('table[width="550"]');
+                    var cell = $('table[width="550"]').parent();
+                    var divLinks = $('<div class="default" style="padding-left:50px;"></div>');
                     if (log.previous != null) {
-                        var previousLink = $('<a href="' + log.previous + '" class="white_link">Précédent</a>');
-                        table.append(previousLink);
+                        var previousLink = $('<a href="' + log.previous + '" class="white_link">Précédent(' + index + ')</a>');
+                        divLinks.append(previousLink);
                     }
+                    divLinks.append($('<span> - </span>'));
                     if (log.next != null) {
-                        var nextLink = $('<a href="' + log.next + '" class="white_link">Suivant</a>');
-                        table.parent().append(nextLink);
+                        var nextLink = $('<a href="' + log.next + '" class="white_link">Suivant(' + (logLinks.length - index - 1) + ')</a>');
+                        divLinks.append(nextLink);
                     }
+                    cell.append(divLinks);
                     return;
                 }
             }
