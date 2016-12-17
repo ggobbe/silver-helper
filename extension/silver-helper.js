@@ -34,10 +34,10 @@ var addItemToCollection = function (item, collection, suffix) {
 }
 
 var findItemCollection = function (item, collections) {
-    var itemName = $(item).find("td.default")[0].innerText.toLowerCase();
-    var itemType = $(item).find('input[name="type"]');
+    var itemType = $(item).find('input[name="type"]').val();
+    var itemId = $(item).find('input[name="idItem"]').val();
 
-    if (itemType.val() === 'vetement') {
+    if (itemType === 'vetement') {
         return collections[2]; // Equipements
     }
 
@@ -45,34 +45,30 @@ var findItemCollection = function (item, collections) {
         if (!collections.hasOwnProperty(i)) continue;
         var collection = collections[i];
 
-        for (var j in collection.keywords) {
-            if (!collection.keywords.hasOwnProperty(j)) continue;
-            var keyword = collection.keywords[j];
-
-            if (itemName.indexOf(keyword) != -1) {
-                return collection;
-            }
+        if ($.inArray(+itemId, collection.ids) != -1) {
+            return collection;
         }
     }
+    return collections[3];
 }
 
 if (url.indexOf("bank.php") != -1) {
     var collections = [
         {
-            name: "Boosts",
-            keywords: ["boost", "constitution", "force", "agilité", "intel", "voix de gimlo", "maitrise spirituelle", "controle mental", "lait de coco"]
+            name: "Potions",
+            ids: [669, 10, 9, 1, 31, 345, 445, 446, 447, 7, 716, 82, 948, 131, 300, 302, 380, 437, 381, 732, 382, 459, 1012, 383, 892, 1098, 1100, 873, 1065, 1075, 886, 1117, 544, 994, 1084, 4, 32, 8, 717, 81, 132, 949, 301, 733, 460, 762, 303, 384, 385, 438, 386, 387, 893, 874, 1118, 545, 1066, 887, 995, 989, 1076, 1085]
         },
         {
-            name: "Potions",
-            keywords: ["potion", "poisson", "essence", "ration", "vie des forgerons"]
+            name: "Boosts",
+            ids: [25, 27, 274, 26, 76, 80, 142, 715, 448, 134, 146, 354, 882, 138, 736, 100, 306, 944, 310, 744, 393, 461, 394, 395, 855, 636, 429, 869, 1067, 845, 1121, 888, 990, 1086, 905, 753, 21, 22, 23, 271, 74, 269, 335, 78, 141, 704, 712, 133, 145, 353, 883, 816, 137, 734, 304, 99, 945, 308, 755, 401, 462, 402, 403, 1091, 431, 633, 1109, 870, 937, 1068, 846, 1120, 889, 991, 1080, 1090, 1087, 534, 666, 18, 19, 20, 273, 73, 77, 143, 714, 135, 147, 355, 884, 139, 735, 305, 946, 309, 754, 389, 463, 390, 391, 634, 430, 1111, 871, 1069, 847, 1122, 890, 992, 1081, 1088, 904, 756, 15, 16, 17, 272, 75, 270, 79, 144, 705, 713, 136, 148, 352, 885, 140, 737, 307, 1020, 947, 311, 745, 397, 464, 398, 399, 635, 432, 1110, 1106, 872, 1092, 1070, 848, 1119, 891, 993, 1082, 1089, 509]
         },
         {
             name: "Equipements",
-            keywords: []
+            ids: []
         },
         {
             name: "Autres",
-            keywords: [""]
+            ids: []
         }
     ];
 
