@@ -119,7 +119,7 @@ if (url.indexOf("bank.php") != -1) {
         var logCl = results[1];
         var logId = results[2];
         var logsKey = "logs" + logCl;
-        chrome.storage.local.get(""+logsKey, function (data) {
+        chrome.storage.local.get("" + logsKey, function (data) {
             var logLinks = data[logsKey];
             for (var index in logLinks) {
                 if (!logLinks.hasOwnProperty(index)) continue;
@@ -143,4 +143,10 @@ if (url.indexOf("bank.php") != -1) {
             }
         });
     }
+} else if (url.indexOf("fight.php?type=user") != -1) {
+    var descriptionTab = $("table.cadreTableSombre");
+    var lineBreak = descriptionTab.next();
+    lineBreak.remove();
+    var parentTab = descriptionTab.parent().parent();
+    parentTab.append(descriptionTab);
 }
