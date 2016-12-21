@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using AngleSharp;
-using AngleSharp.Dom;
 using Newtonsoft.Json;
 
 namespace ConsoleApplication
@@ -13,12 +11,12 @@ namespace ConsoleApplication
     {
         public static void Main(string[] args)
         {
-            var lifePotions = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=pv");
-            var manaPotions = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=mana");
-            var constitutionBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=constitution");
-            var forceBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=force");
-            var agiliteBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=agilite");
-            var intelligenceBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=intelligence");
+            var lifePotions = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=pv&vente=1");
+            var manaPotions = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=mana&vente=1");
+            var constitutionBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=constitution&vente=1");
+            var forceBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=force&vente=1");
+            var agiliteBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=agilite&vente=1");
+            var intelligenceBoosts = ExtractItemsIdFromUrl("https://sw.neosw.be/?psw=list_potion&type=intelligence&vente=1");
 
             var items = new
             {
